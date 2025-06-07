@@ -116,7 +116,7 @@ export default class WorldScene extends Scene {
   player!: GameObjects.Sprite;
   speed: number = 10;
   tilemap!: Tilemaps.Tilemap;
-  map: Maps = Maps.PALLET_TOWN;
+  map: Maps = Maps.SPRITE_FUSION;
   daylightOverlay!: GameObjects.Graphics;
   cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   enterKey!: Phaser.Input.Keyboard.Key;
@@ -141,6 +141,11 @@ export default class WorldScene extends Scene {
   init(data: any) {
     // Get socket from data passed from BootScene
     this.socket = data.socket;
+
+    // Only set map if provided
+    if (data && data.map) {
+      this.map = data.map;
+    }
 
     const daylightOverlay = this.add.graphics();
     daylightOverlay.setDepth(1000);
@@ -304,27 +309,19 @@ export default class WorldScene extends Scene {
   initializeTilemap(): void {
     this.tilemap = this.make.tilemap({ key: this.map });
 
-    // Add tilesets - using the approach from the client code
-    const all_tilesets = Object.values(Tilesets).reduce(
-      (acc: Tilemaps.Tileset[], value: Tilesets) => {
-        if (this.tilemap.tilesets.find(({ name }) => name === value)) {
-          const tileset = this.tilemap.addTilesetImage(value);
+    // Add Sprite Fusion tileset
+    const spriteFusionTileset = this.tilemap.addTilesetImage('sprite_fusion_tileset');
 
-          if (tileset) {
-            acc = [...acc, tileset];
-          }
-        }
-
-        return acc;
-      },
-      []
-    );
+    if (!spriteFusionTileset) {
+      console.error('Failed to load Sprite Fusion tileset');
+      return;
+    }
 
     // Create layers in the correct order for z-index
     Object.values(Layers)
       .filter((layer) => layer !== Layers.OBJECTS)
       .forEach((layer) => {
-        this.tilemap.createLayer(layer, all_tilesets);
+        this.tilemap.createLayer(layer, [spriteFusionTileset]);
       });
   }
 

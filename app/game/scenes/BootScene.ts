@@ -63,13 +63,20 @@ export default class BootScene extends Scene {
     Object.values(Tilesets).forEach((tileset) => {
       this.load.image(tileset, `assets/tilesets/${tileset}.png`);
     });
+
+    // Load Sprite Fusion tileset
+    this.load.image('sprite_fusion_tileset', 'assets/maps/sprite_fusion/tileset.png');
   }
 
   loadMaps(): void {
     const maps = Object.values(Maps);
 
     for (const map of maps) {
-      this.load.tilemapTiledJSON(map, `assets/maps/${map}.json`);
+      if (map === Maps.SPRITE_FUSION) {
+        this.load.tilemapTiledJSON(map, `assets/maps/sprite_fusion/map.json`);
+      } else {
+        this.load.tilemapTiledJSON(map, `assets/maps/${map}.json`);
+      }
     }
   }
 

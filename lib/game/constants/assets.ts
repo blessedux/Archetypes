@@ -31,15 +31,13 @@ export enum Maps {
   MEDIUM_HOUSE = "medium_house",
   SMALL_HOUSE = "small_house",
   PALLET_TOWN = "pallet_town",
+  SPRITE_FUSION = "sprite_fusion",
 }
 
 export enum Layers {
-  BELOW_PLAYER = "below_player",
-  BELOW_PLAYER2 = "below_player2",
-  WORLD = "world",
-  WORLD2 = "world2",
-  ABOVE_PLAYER = "above_player",
-  OBJECTS = "objects",
+  GROUND = "Ground",
+  OBJECTS = "Objects",
+  ABOVE = "Above",
 }
 
 export enum Objects {
