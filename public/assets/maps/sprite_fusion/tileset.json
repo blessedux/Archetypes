@@ -1,0 +1,10 @@
+{
+    "columns": 1,
+    "image": "tileset.png",
+    "imagewidth": 32,
+    "imageheight": 32,
+    "tilecount": 1,
+    "tilewidth": 32,
+    "tileheight": 32,
+    "name": "sprite_fusion_tileset"
+} 

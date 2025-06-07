@@ -34,7 +34,28 @@ const wagmiConfig = createConfig({
 });
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const [queryClient] = React.useState(() => new QueryClient());
+  const [queryClient] = React.useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+            retry: false,
+            staleTime: 5 * 60 * 1000,
+          },
+        },
+      })
+  );
+
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -42,6 +63,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <ThirdwebProvider
           activeChain={Mantle}
           clientId={process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID}
+          supportedWallets={[]}
         >
           <NuqsAdapter>{children}</NuqsAdapter>
         </ThirdwebProvider>

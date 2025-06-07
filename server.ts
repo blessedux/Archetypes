@@ -5,7 +5,7 @@ import { initSocketServer } from "./lib/socket/socketServer";
 
 const dev = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
-const port = 3000;
+const port = parseInt(process.env.PORT || "3000", 10);
 
 // Initialize Next.js
 const app = next({ dev, hostname, port });
@@ -18,9 +18,14 @@ app.prepare().then(() => {
   const io = initSocketServer(httpServer);
 
   httpServer
-    .once("error", (err) => {
-      console.error(err);
-      process.exit(1);
+    .once("error", (err: NodeJS.ErrnoException) => {
+      if (err.code === "EADDRINUSE") {
+        console.log(`Port ${port} is busy, trying ${port + 1}`);
+        httpServer.listen(port + 1);
+      } else {
+        console.error(err);
+        process.exit(1);
+      }
     })
     .listen(port, () => {
       console.log(`> Ready on http://${hostname}:${port}`);

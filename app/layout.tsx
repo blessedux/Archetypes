@@ -1,6 +1,6 @@
 "use client";
 
-import { Providers } from "../components/providers";
+import ClientProviders from "../components/providers/ClientProviders";
 import "./globals.css";
 
 export default function RootLayout({
@@ -11,7 +11,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );

@@ -1,0 +1,27 @@
+{
+  "name": "player",
+  "width": 48,
+  "height": 48,
+  "frames": {
+    "down": {
+      "standing": 1,
+      "leftFoot": 0,
+      "rightFoot": 2
+    },
+    "left": {
+      "standing": 4,
+      "leftFoot": 3,
+      "rightFoot": 5
+    },
+    "right": {
+      "standing": 7,
+      "leftFoot": 6,
+      "rightFoot": 8
+    },
+    "up": {
+      "standing": 10,
+      "leftFoot": 9,
+      "rightFoot": 11
+    }
+  }
+} 

@@ -1,26 +1,15 @@
 "use client";
 
-import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { ConnectWallet } from "@thirdweb-dev/react";
 
 export default function Login() {
-  const address = useAddress();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (address) {
-      router.push("/");
-    }
-  }, [address, router]);
-
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <div className="text-2xl font-bold mb-8">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-black">
+      <div className="text-2xl font-bold mb-8 text-white">
         Archetypes of the Collective Unconscious
       </div>
       <ConnectWallet
-        theme="light"
+        theme="dark"
         modalSize="compact"
         welcomeScreen={{
           title: "Welcome to our app",
